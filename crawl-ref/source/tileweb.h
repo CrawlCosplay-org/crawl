@@ -222,6 +222,7 @@ public:
     void send_doll(const dolls_data &doll, bool submerged, bool ghost);
     void send_milestone(const xlog_fields &xl);
     void send_options();
+    void send_main_menu_keys();
 
 protected:
     int m_sock;

@@ -346,6 +346,7 @@ static void _post_init(bool newc)
     read_startup_prefs();
 #ifdef USE_TILE_WEB
     tiles.send_options();
+    tiles.send_main_menu_keys();
 #endif
 
     // In case Lua changed the character set.
