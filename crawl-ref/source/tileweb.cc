@@ -160,6 +160,7 @@ bool TilesFramework::initialise()
     send_exit_reason("unknown");
     send_options(); // n.b. full rc read hasn't happened yet
     _send_layout();
+    send_main_menu_keys();
 
     return true;
 }
@@ -732,6 +733,19 @@ void TilesFramework::send_options()
     json_open_object();
     json_write_string("msg", "options");
     Options.write_webtiles_options("options");
+    json_close_object();
+    finish_message();
+}
+
+void TilesFramework::send_main_menu_keys()
+{
+    vector<int> key_codes = command_to_keys(CMD_GAME_MENU);
+    json_open_object();
+    json_write_string("msg", "set_main_menu_keys");
+    json_open_array("keys");
+    for (int key_code : key_codes)
+        json_write_string(keycode_to_name(key_code));
+    json_close_array();
     json_close_object();
     finish_message();
 }

@@ -19,6 +19,7 @@ function ($, comm, client, cr, enums, options, player, icons, gui, main,
     var draw_glyphs;
     var selected = -1;
     const NUM_RESERVED_BUTTONS = 2;
+    var open_main_menu_keys = [];
 
     function send_options()
     {
@@ -163,7 +164,12 @@ function ($, comm, client, cr, enums, options, player, icons, gui, main,
                           + "<span>Right click: open settings</span>");
         }
         else if (slot == -1 && game.get_input_mode() == enums.mouse_mode.COMMAND)
-            $tooltip.html("<span>Left click: show main menu</span>");
+        {
+            var tip_text = "Left click: show main menu";
+            if (open_main_menu_keys.length > 0)
+                tip_text += " (" + open_main_menu_keys.join(", ") + ")";
+            $tooltip.html("<span>" + tip_text + "</span>");
+        }
         else
         {
             var item = filtered_inv[slot];
@@ -557,5 +563,14 @@ function ($, comm, client, cr, enums, options, player, icons, gui, main,
                 show_panel(false);
             update();
         }
+    });
+
+    function set_main_menu_keys(data)
+    {
+        open_main_menu_keys = data.keys;
+    }
+
+    comm.register_handlers({
+        "set_main_menu_keys": set_main_menu_keys
     });
 });

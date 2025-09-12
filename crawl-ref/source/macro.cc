@@ -2218,9 +2218,9 @@ vector<int> command_to_keys(command_type cmd)
     if (context == KMC_NONE)
         return result;
 
-    for (auto pair : _cmds_to_keys[context])
-        if (pair.first == cmd)
-            result.push_back(pair.second);
+    for (auto pair : _keys_to_cmds[context])
+        if (pair.second == cmd)
+            result.push_back(pair.first);
     return result;
 }
 
